@@ -720,8 +720,8 @@ it is assumed to be an ordinary word and is passed to
   (interactive "*")
   (lout-macro-insert
    type "\n"
-   "   @ListItem { " _ " }\n"
-   "   @ListItem { }\n"
+   "   @LI { " _ " }\n"
+   "   @LI { }\n"
    "@EndList\n"))
 
 
