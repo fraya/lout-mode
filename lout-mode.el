@@ -184,7 +184,7 @@ emitting warnings about undefined symbols. Unimplemented.")
 
 (defconst lout-font-lock-keywords
   (list
-   '("@\\(Chapter\\|Section\\|SubSection\\|Abstract\\|BeginSections\\|EndSections\\|BeginSubSections\\|EndSubSections\\|Appendix\\|BeginSubAppendices\\|EndSubAppendices\\|SubAppendix\\|Preface\\)"
+   '("@\\(Chapter\\|Section\\|SubSection\\|Abstract\\|BeginSections\\|EndSections\\|BeginSubSections\\|EndSubSections\\|Appendix\\|BeginSubAppendices\\|EndSubAppendices\\|SubAppendix\\|Overhead\\|Preface\\)"
      1 font-lock-function-name-face)
    '("@\\(Begin\\)[ ]+\\([a-zA-Z]+\\)"
      (1 font-lock-keyword-face) (2 font-lock-function-name-face))
@@ -203,7 +203,7 @@ emitting warnings about undefined symbols. Unimplemented.")
 
 ;; each of these will have ^.*@ prepended
 (defvar lout-outline-level1
-  "\\(Abstract\\|Chapter\\|Section\\)\\s-+\\(@Title\\)?\\s-*{")
+  "\\(Abstract\\|Chapter\\|Section\\|Overhead\\)\\s-+\\(@Title\\)?\\s-*{")
 (defvar lout-outline-level2 "SubSection\\s-+\\(@Title\\)?\\s-*{")
 (defvar lout-outline-level3 "SubSubSection\\s-+\\(@Title\\)?\\s-*{")
 
@@ -268,6 +268,7 @@ emitting warnings about undefined symbols. Unimplemented.")
   (define-key lout-mode-map "\C-c\C-t"      'lout-insert-table)
   (define-key lout-mode-map "\C-c\C-g"      'lout-insert-figure)
   (define-key lout-mode-map "\C-c\C-u"      'lout-insert-subsection)
+  (define-key lout-mode-map "\C-c\C-o"      'lout-insert-overhead)
   (define-key lout-mode-map "\C-ca"         'lout-insert-item); NOT IMPLEMENTED!!
   
   (define-key lout-mode-map "\C-cC-#"       'lout-comment-paragraph)
@@ -303,6 +304,7 @@ emitting warnings about undefined symbols. Unimplemented.")
               ["SubSection" lout-insert-subsection t]
               ["Figure" lout-insert-figure t]
               ["Graphics" (lout-insert-command "@Graphics") t]
+	      ["Overhead" lout-insert-overhead t]
               ["Table" lout-insert-table t]
               (list "Display"
                     ["Standard" (lout-insert-command "@Display") t]
@@ -758,6 +760,14 @@ it is assumed to be an ordinary word and is passed to
   "@Begin\n"
   "@LP " _ \n \n
   "@End @SubSection\n")
+
+(define-skeleton lout-insert-overhead "Insert a new @Overhead" nil
+  (if (bolp) nil ?\n)
+  '(setq v1 (skeleton-read "Overhead title: "))
+  "@Overhead @Title { " v1 " }\n"
+  "@Begin\n"
+  "@LP " \n \n _
+  "@End @Overhead\n")
 
 (define-skeleton lout-insert-figure "Insert a @Figure" nil
   (if (bolp) nil ?\n)
