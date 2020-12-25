@@ -50,7 +50,7 @@
   (require 'compile)
   (require 'cl))
 
-(defconst lout-version "0.3")           ; of this major-mode
+(defconst lout-version "0.4")           ; of this major-mode
 
 (defvar lout-view-command "gv -safer"
   "*The name of the Postscript previewer on your system.
@@ -84,8 +84,8 @@ protect against malicious embedded system calls.")
 Whether we should run the Lout interpreter repeatedly until it stops
 emitting warnings about undefined symbols. Unimplemented.")
 
-(defvar lout-user-guide "/usr/doc/lout/user.ps"
-  "*Path to the Lout user guide")
+(defvar lout-user-guide "/usr/share/lout/doc/user-guide.pdf"
+  "*Path to the Lout user guide in OpenSUSE")
 
 
 ;; Incomplete, and should probably be broken up into more sublists,
